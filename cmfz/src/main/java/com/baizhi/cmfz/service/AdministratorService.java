@@ -1,6 +1,6 @@
 package com.baizhi.cmfz.service;
 
-import com.baizhi.cmfz.enity.Administrator;
+import com.baizhi.cmfz.entity.Administrator;
 
 public interface AdministratorService {
     //登录

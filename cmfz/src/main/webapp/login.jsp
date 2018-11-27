@@ -18,12 +18,31 @@
 			//点击更换验证码：
 			$("#captchaImage").click(function(){//点击更换验证码
 				alert("自己做");
+                $("#captchaImage").prop("src", "${pageContext.request.contextPath}/getKaptcha.do?time=" + (new Date()).getTime())
 			});
-			
+
+            function checkName() {
+                var name = $(".name").val();
+                if (name.length != 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            function checkPassword() {
+                var password = $(".password").val();
+                if (password.length != 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
 			//  form 表单提交
 			$("#loginForm").bind("submit",function(){
 				alert("自己做");
-				return false;
+                return checkName() && checkPassword();
 			});
 		});
 	</script>
@@ -31,7 +50,7 @@
 <body>
 	
 		<div class="login">
-			<form id="loginForm" action="../back/index.html" method="post" >
+			<form id="loginForm" action="${pageContext.request.contextPath}/login.do" method="post">
 				
 				<table>
 					<tbody>
@@ -43,7 +62,7 @@
 								用户名:
 							</th>
 							<td>
-								<input type="text"  name="user.name" class="text" value="xxx" maxlength="20"/>
+								<input type="text" name="name" class="text" maxlength="20" onblur="checkName()"/>
 							</td>
 					  </tr>
 					  <tr>
@@ -51,7 +70,8 @@
 								密&nbsp;&nbsp;&nbsp;码:
 							</th>
 							<td>
-								<input type="password" name="user.password" class="text" value="xxx" maxlength="20" autocomplete="off"/>
+								<input type="password" name="password" class="text" maxlength="20" autocomplete="off"
+									   onblur="checkPassword()"/>
 							</td>
 					  </tr>
 					
@@ -60,7 +80,8 @@
 							<th>验证码:</th>
 							<td>
 								<input type="text" id="enCode" name="enCode" class="text captcha" maxlength="4" autocomplete="off"/>
-								<img id="captchaImage" class="captchaImage" src="img/captcha.jpg" title="点击更换验证码"/>
+								<img id="captchaImage" class="captchaImage"
+									 src="${pageContext.request.contextPath}/getKaptcha.do" title="点击更换验证码"/>
 							</td>
 						</tr>					
 					<tr>

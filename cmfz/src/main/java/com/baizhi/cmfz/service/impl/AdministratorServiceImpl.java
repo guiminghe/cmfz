@@ -1,7 +1,7 @@
 package com.baizhi.cmfz.service.impl;
 
 import com.baizhi.cmfz.dao.AdministratorDao;
-import com.baizhi.cmfz.enity.Administrator;
+import com.baizhi.cmfz.entity.Administrator;
 import com.baizhi.cmfz.service.AdministratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.baizhi.cmfz.enity;
+package com.baizhi.cmfz.entity;
 
 import lombok.Data;
 
