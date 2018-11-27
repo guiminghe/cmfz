@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.cmfz.dao.MenuDao">
+    <!--    private int id;
+        private String title;
+        private String iconCls;
+        private int parentId;
+        private String url;
+        private List<Menu> secondMenuList;-->
+    <resultMap type="Menu" id="menuMap">
+        <id column="m_id" property="id"/>
+        <result column="m_title" property="title"/>
+        <result column="m_iconCls" property="iconCls"/>
+        <result column="m_parent_id" property="parentId"/>
+        <result column="m_url" property="url"/>
+        <collection property="secondMenuList" ofType="Menu">
+            <id column="sm_id" property="id"/>
+            <result column="sm_title" property="title"/>
+            <result column="sm_iconCls" property="iconCls"/>
+            <result column="sm_parent_id" property="parentId"/>
+            <result column="sm_url" property="url"/>
+        </collection>
+    </resultMap>
+    <!-- 查询一级菜单和二级菜单 -->
+    <select id="selectFirstAndSecondMenu" resultMap="menuMap">
+        SELECT
+            mf.*, ms.m_id sm_id,
+            ms.m_title sm_title,
+            ms.m_iconCls sm_iconCls,
+            ms.m_parent_id sm_parent_id,
+            ms.m_url sm_url
+        FROM
+            menu mf
+        LEFT JOIN menu ms ON mf.m_id = ms.m_parent_id;
+    </select>
+
+</mapper>

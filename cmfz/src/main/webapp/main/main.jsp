@@ -4,13 +4,35 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>持名法州主页</title>
-<link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">   
-<link rel="stylesheet" type="text/css" href="../themes/IconExtension.css">   
-<script type="text/javascript" src="../js/jquery.min.js"></script>   
-<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>  
-<script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/themes/IconExtension.css">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript">
 	<!--菜单处理-->
+
+    $(function () {
+        //alert("菜单处理")
+        $.ajax({
+            url: "selectFirstAndSecondMenu.do",
+            success: function (data) {
+                if (data.result) {
+                    var menuList = data.menuList
+                    for (var i = 0; i < data.menuList.length; i++) {
+                        $('#aa').accordion('add', {
+                            iconCls: "${pageContext.request.contextPath}/themes/icons/" + menuList[i].iconCls,
+                            title: menuList[i].title,
+                            content: menuList[i].secondMenuList,
+                        });
+                    }
+                } else {
+                    $('#aa').accordion('getSelected').panel('refresh', 'new_content.php');  // 调用'refresh'方法刷新
+                }
+            }
+        });
+    });
+
 </script>
 
 </head>
@@ -25,8 +47,8 @@
        
     <div data-options="region:'west',title:'导航菜单',split:true" style="width:220px;">
     	<div id="aa" class="easyui-accordion" data-options="fit:true">
-    		
-		</div>  
+
+        </div>
     </div>   
     <div data-options="region:'center'">
     	<div id="tt" class="easyui-tabs" data-options="fit:true,narrow:true,pill:true">   

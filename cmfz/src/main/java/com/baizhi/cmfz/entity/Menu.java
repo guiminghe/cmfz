@@ -2,6 +2,8 @@ package com.baizhi.cmfz.entity;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class Menu {
     private int id;
@@ -9,4 +11,5 @@ public class Menu {
     private String iconCls;
     private int parentId;
     private String url;
+    private List<Menu> secondMenuList;
 }

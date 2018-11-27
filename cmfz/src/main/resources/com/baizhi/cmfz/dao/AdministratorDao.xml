@@ -6,7 +6,7 @@
     <!--    private int id;
         private String name;
         private String password;-->
-    <resultMap type="com.baizhi.cmfz.entity.Administrator" id="administratorMap">
+    <resultMap type="Administrator" id="administratorMap">
         <id column="ad_id" property="id"/>
         <result column="ad_name" property="name"/>
         <result column="ad_password" property="password"/>
