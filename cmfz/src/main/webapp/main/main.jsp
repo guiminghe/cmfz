@@ -23,6 +23,13 @@
                         $('#aa').accordion('add', {
                             iconCls: "${pageContext.request.contextPath}/themes/icons/" + menuList[i].iconCls,
                             title: menuList[i].title,
+                            for(var n = 0;
+                        n < menuList[i].secondMenuList;
+                        n++
+                    )
+                        {
+
+                        }
                             content: menuList[i].secondMenuList,
                         });
                     }
