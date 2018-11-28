@@ -1,7 +1,7 @@
 package com.baizhi.cmfz.controller;
 
-import com.baizhi.cmfz.entity.Menu;
-import com.baizhi.cmfz.service.MenuService;
+import com.baizhi.cmfz.entity.Banner;
+import com.baizhi.cmfz.service.BannerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,17 +12,18 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/main")
-public class MenuController {
+public class BannerController {
     @Autowired
-    private MenuService menuService;
+    private BannerService bannerService;
 
-    @RequestMapping("/selectFirstAndSecondMenu")
+    @RequestMapping("/selectAllBanner")
     public @ResponseBody
-    Map stAndSecondMenu() {
+    Map selectAllBanner(int page, int rows) {
         Map map = new HashMap();
-        List<Menu> menuList = menuService.selectFirstAndSecondMenu();
-        map.put("menuList", menuList);
+        List<Banner> bannerList = bannerService.selectAllBanner(page, rows);
+        int total = bannerService.selectCount();
+        map.put("rows", bannerList);
+        map.put("total", total);
         return map;
     }
 }

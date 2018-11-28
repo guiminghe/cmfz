@@ -23,7 +23,7 @@ public class AdministratorController {
         if (sessionKaptcha.equalsIgnoreCase(enCode)) {
             Administrator adm = administratorService.login(administrator);
             session.setAttribute("administrator", adm);
-            return "redirect:/main/main.jsp";
+            return "redirect:/selectFirstAndSecondMenu.do";
         } else {
             return "login";
         }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.cmfz.dao.BannerDao">
+    <!--    private int id;
+        private String title;
+        private String imgPath;
+        private String desc;
+        private String status;
+        private Date date;-->
+    <resultMap type="Banner" id="bannerMap">
+        <id column="b_id" property="id"/>
+        <result column="b_title" property="title"/>
+        <result column="b_imgPath" property="imgPath"/>
+        <result column="b_desc" property="desc"/>
+        <result column="b_status" property="status"/>
+        <result column="b_date" property="date"/>
+    </resultMap>
+    <!-- 查询所有轮播图信息 -->
+    <select id="selectAllBanner" resultMap="bannerMap">
+        SELECT
+            *
+        FROM
+            cmfz_banner
+        LIMIT #{start},#{pageSize}
+    </select>
+
+    <!--获取数据总条数-->
+    <select id="selectCount" resultType="int">
+         SELECT
+            count(*)
+        FROM
+            cmfz_banner
+    </select>
+
+</mapper>

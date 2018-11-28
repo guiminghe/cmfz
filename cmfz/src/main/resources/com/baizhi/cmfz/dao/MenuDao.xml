@@ -32,8 +32,10 @@
             ms.m_parent_id sm_parent_id,
             ms.m_url sm_url
         FROM
-            menu mf
-        LEFT JOIN menu ms ON mf.m_id = ms.m_parent_id;
+            cmfz_menu mf
+        LEFT JOIN cmfz_menu ms ON mf.m_id = ms.m_parent_id
+        WHERE
+            mf.m_parent_id IS NULL;
     </select>
 
 </mapper>

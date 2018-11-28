@@ -1,4 +1,5 @@
 ﻿<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,27 +10,21 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/datagrid-detailview.js"></script>
 <script type="text/javascript">
 	<!--菜单处理-->
 
-    $(function () {
-        //alert("菜单处理")
-        $.ajax({
-            url: "selectFirstAndSecondMenu.do",
-            success: function (data) {
-                if (data.result) {
-                    var menuList = data.menuList
-                    for (var i = 0; i < data.menuList.length; i++) {
-                        $('#aa').accordion('add', {
-                            iconCls: "${pageContext.request.contextPath}/themes/icons/" + menuList[i].iconCls,
+    /*    $(function () {
+            //alert("菜单处理")
+            $.ajax({
+                url: "selectFirstAndSecondMenu.do",
+                success: function (data) {
+                    if (data.result) {
+                        var menuList = data.menuList
+                        for (var i = 0; i < data.menuList.length; i++) {
+                            $('#aa').accordion('add', {
+                                iconCls: "${pageContext.request.contextPath}/themes/icons/back.png",
                             title: menuList[i].title,
-                            for(var n = 0;
-                        n < menuList[i].secondMenuList;
-                        n++
-                    )
-                        {
-
-                        }
                             content: menuList[i].secondMenuList,
                         });
                     }
@@ -38,7 +33,51 @@
                 }
             }
         });
-    });
+    });*/
+
+    $(function () {
+        $.ajax({
+            url: "selectFirstAndSecondMenu.do",
+            dataType: "JSON",
+            success: function (data) {
+                //alert(data)
+                $.each(data.menuList, function (index, first) {
+                    var c = "";
+                    $.each(first.secondMenuList, function (index1, second) {
+                        c += "<p style='text-align: center'><a id=\"btn\" href=\"#\" class=\"easyui-linkbutton\" onclick=\"addTabs('" + second.title + "','" + second.url + "','" + second.iconCls + "')\" data-options=\"iconCls:'icon-search'\">" + second.title + "</a></p>";
+                    })
+
+                    $('#aa').accordion('add', {
+                        title: first.title,
+                        content: c,
+                        iconCls: first.iconCls,
+                        selected: false
+                    });
+
+
+                })
+            }
+        })
+    })
+
+    function addTabs(title, url, iconCls) {
+        var flag = $("#tt").tabs("exists", title);
+        if (flag) {
+            $("#tt").tabs("select", title);
+        } else {
+            /*添加选项卡*/
+            $('#tt').tabs('add', {
+                title: title,
+                selected: true,
+                href: "${pageContext.request.contextPath}" + url,
+                iconCls: iconCls,
+                closable: true
+            });
+        }
+
+
+    }
+
 
 </script>
 
@@ -54,13 +93,19 @@
        
     <div data-options="region:'west',title:'导航菜单',split:true" style="width:220px;">
     	<div id="aa" class="easyui-accordion" data-options="fit:true">
-
+            <%--<c:forEach items="${requestScope.menuList}" var="firstMenu">
+                <div title="${firstMenu.title}">
+                    <c:forEach items="${firstMenu.secondMenuList}" var="secondMenu">
+                        ${secondMenu.title}
+                    </c:forEach>
+                </div>
+            </c:forEach>--%>
         </div>
     </div>   
     <div data-options="region:'center'">
-    	<div id="tt" class="easyui-tabs" data-options="fit:true,narrow:true,pill:true">   
-		    <div title="主页" data-options="iconCls:'icon-neighbourhood',"  style="background-image:url(image/shouye.jpg);background-repeat: no-repeat;background-size:100% 100%;"></div>
-		</div>  
+    	<div id="tt" class="easyui-tabs" data-options="fit:true,narrow:true,pill:true">
+
+        </div>
     </div>   
 </body> 
 </html>

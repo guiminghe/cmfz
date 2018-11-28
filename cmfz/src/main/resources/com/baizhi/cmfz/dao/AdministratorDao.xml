@@ -13,7 +13,7 @@
     </resultMap>
     <!-- 根据email和password查询数据 -->
     <select id="selectByNameAndPassword" resultMap="administratorMap">
-        select * from Administrator where ad_name = #{name} and ad_password = #{password}
+        select * from cmfz_administrator where ad_name = #{name} and ad_password = #{password};
 	</select>
 
 </mapper>
