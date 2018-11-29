@@ -23,6 +23,8 @@
             *
         FROM
             cmfz_banner
+        WHERE
+            b_status = '展示'
         LIMIT #{start},#{pageSize}
     </select>
 
@@ -42,4 +44,12 @@
         WHERE
             b_id = #{id};
     </delete>
+
+    <!--根据id修改轮播图的状态-->
+    <update id="updateStatus">
+        UPDATE cmfz_banner
+        SET b_status = #{status}
+        WHERE
+            b_id = #{id}
+    </update>
 </mapper>

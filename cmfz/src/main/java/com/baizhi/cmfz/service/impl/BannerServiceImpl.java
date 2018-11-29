@@ -29,4 +29,9 @@ public class BannerServiceImpl implements BannerService {
     public void deleteById(int id) {
         bannerDao.deleteById(id);
     }
+
+    @Override
+    public void updateStatus(int id, String status) {
+        bannerDao.updateStatus(id, status);
+    }
 }

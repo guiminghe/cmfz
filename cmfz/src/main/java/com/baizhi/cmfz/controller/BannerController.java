@@ -17,8 +17,8 @@ public class BannerController {
     private BannerService bannerService;
 
     @RequestMapping("/selectAllBanner")
-    public @ResponseBody
-    Map selectAllBanner(int page, int rows) {
+    @ResponseBody
+    public Map selectAllBanner(int page, int rows) {
         System.out.println(page + "*******&&&&&&*****" + rows);
         Map map = new HashMap();
         List<Banner> bannerList = bannerService.selectAllBanner(page, rows);
@@ -29,8 +29,8 @@ public class BannerController {
     }
 
     @RequestMapping("/deleteById")
-    public @ResponseBody
-    Boolean deleteById(int id) {
+    @ResponseBody
+    public boolean deleteById(int id) {
         System.out.println(id + "**********************");
         try {
             bannerService.deleteById(id);
@@ -40,4 +40,18 @@ public class BannerController {
             return false;
         }
     }
+
+    @RequestMapping("/updateStatus")
+    @ResponseBody
+    public boolean updateStatus(int id, String status) {
+        try {
+            bannerService.updateStatus(id, status);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 }

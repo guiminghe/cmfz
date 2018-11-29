@@ -29,4 +29,9 @@ public class BannerServiceImplTest {
     public void delete() {
         bannerService.deleteById(2);
     }
+
+    @Test
+    public void updateStatus() {
+        bannerService.updateStatus(6, "不展示");
+    }
 }

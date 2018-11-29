@@ -77,6 +77,40 @@
         iconCls: 'icon-help',
         handler: function () {
             $("#dg").edatagrid("saveRow");
+            var row = $("#dg").edatagrid("getSelected")
+            if (row == null) {
+                $.messager.show({
+                    title: '警告',
+                    msg: '请选中保存信息。',
+                    showType: 'show',
+                    style: {
+                        right: '',
+                        top: document.body.scrollTop + document.documentElement.scrollTop,
+                        bottom: ''
+                    }
+                });
+            } else {
+                $.messager.confirm('确认', '您确认想要保存记录吗？', function (r) {
+                    if (r) {
+                        alert('确认保存');
+                        $.ajax({
+                            url: "${pageContext.request.contextPath}/updateStatus.do",
+                            data: "id=" + row.id + "status=" + row.status,
+                            //traditional:true,
+                            success: function (data) {
+                                if (data) {
+                                    alert("保存信息成功");
+                                    $('#dg').edatagrid("reload");
+                                } else {
+                                    alert("保存信息失败");
+                                    $('#dg').edatagrid("reload");
+                                }
+                            }
+                        })
+                    }
+                });
+            }
+
         }
     }];
 

@@ -14,4 +14,7 @@ public interface BannerDao {
 
     //根据id删除轮播图
     public void deleteById(int id);
+
+    //根据id修改轮播图的状态
+    public void updateStatus(@Param("id") int id, @Param("status") String status);
 }
