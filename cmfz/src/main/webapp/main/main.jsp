@@ -11,29 +11,10 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/datagrid-detailview.js"></script>
-<script type="text/javascript">
-	<!--菜单处理-->
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.edatagrid.js"></script>
 
-    /*    $(function () {
-            //alert("菜单处理")
-            $.ajax({
-                url: "selectFirstAndSecondMenu.do",
-                success: function (data) {
-                    if (data.result) {
-                        var menuList = data.menuList
-                        for (var i = 0; i < data.menuList.length; i++) {
-                            $('#aa').accordion('add', {
-                                iconCls: "${pageContext.request.contextPath}/themes/icons/back.png",
-                            title: menuList[i].title,
-                            content: menuList[i].secondMenuList,
-                        });
-                    }
-                } else {
-                    $('#aa').accordion('getSelected').panel('refresh', 'new_content.php');  // 调用'refresh'方法刷新
-                }
-            }
-        });
-    });*/
+    <script type="text/javascript">
+	<!--菜单处理-->
 
     $(function () {
         $.ajax({
@@ -93,13 +74,7 @@
        
     <div data-options="region:'west',title:'导航菜单',split:true" style="width:220px;">
     	<div id="aa" class="easyui-accordion" data-options="fit:true">
-            <%--<c:forEach items="${requestScope.menuList}" var="firstMenu">
-                <div title="${firstMenu.title}">
-                    <c:forEach items="${firstMenu.secondMenuList}" var="secondMenu">
-                        ${secondMenu.title}
-                    </c:forEach>
-                </div>
-            </c:forEach>--%>
+
         </div>
     </div>   
     <div data-options="region:'center'">

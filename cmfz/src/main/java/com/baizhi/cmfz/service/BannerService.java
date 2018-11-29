@@ -10,4 +10,7 @@ public interface BannerService {
 
     //获取数据总条数
     public int selectCount();
+
+    //根据id删除轮播图
+    public void deleteById(int id);
 }

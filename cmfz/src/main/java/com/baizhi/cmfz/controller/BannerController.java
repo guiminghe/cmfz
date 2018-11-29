@@ -19,11 +19,25 @@ public class BannerController {
     @RequestMapping("/selectAllBanner")
     public @ResponseBody
     Map selectAllBanner(int page, int rows) {
+        System.out.println(page + "*******&&&&&&*****" + rows);
         Map map = new HashMap();
         List<Banner> bannerList = bannerService.selectAllBanner(page, rows);
         int total = bannerService.selectCount();
         map.put("rows", bannerList);
         map.put("total", total);
         return map;
+    }
+
+    @RequestMapping("/deleteById")
+    public @ResponseBody
+    Boolean deleteById(int id) {
+        System.out.println(id + "**********************");
+        try {
+            bannerService.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

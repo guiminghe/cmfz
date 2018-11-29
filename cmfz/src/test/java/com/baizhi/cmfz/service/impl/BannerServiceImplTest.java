@@ -24,4 +24,9 @@ public class BannerServiceImplTest {
             System.out.println(b);
         }
     }
+
+    @Test
+    public void delete() {
+        bannerService.deleteById(2);
+    }
 }

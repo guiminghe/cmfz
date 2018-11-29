@@ -24,4 +24,9 @@ public class BannerServiceImpl implements BannerService {
     public int selectCount() {
         return bannerDao.selectCount();
     }
+
+    @Override
+    public void deleteById(int id) {
+        bannerDao.deleteById(id);
+    }
 }

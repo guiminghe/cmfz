@@ -34,4 +34,12 @@
             cmfz_banner
     </select>
 
+    <!--根据id删除轮播图-->
+    <delete id="deleteById">
+        DELETE
+        FROM
+            cmfz_banner
+        WHERE
+            b_id = #{id};
+    </delete>
 </mapper>
