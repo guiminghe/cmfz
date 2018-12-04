@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.cmfz.dao.AlbumDao">
+    <!--    private String id;
+        private String title;
+        private String coverImg;
+        private int count;
+        private double score;
+        private String author;
+        private String broadCast;
+        private String brief;
+        private Date publishDate;-->
+
+    <!--    private int id;
+        private String alId;
+        private String title;
+        private double size;
+        private double duration;
+        private String downPath;
+        private Date uploadDate;-->
+    <resultMap type="Album" id="albumMap">
+        <id column="al_id" property="id"/>
+        <result column="al_title" property="title"/>
+        <result column="al_coverImg" property="coverImg"/>
+        <result column="al_count" property="count"/>
+        <result column="al_score" property="score"/>
+        <result column="al_author" property="author"/>
+        <result column="al_broadCast" property="broadCast"/>
+        <result column="al_brief" property="brief"/>
+        <result column="al_publishDate" property="publishDate"/>
+        <collection property="children" ofType="Audio">
+            <id column="au_id" property="id"/>
+            <result column="al_id" property="alId"/>
+            <result column="au_title" property="title"/>
+            <result column="au_size" property="size"/>
+            <result column="au_duration" property="duration"/>
+            <result column="au_downPath" property="downPath"/>
+            <result column="au_uploadDate" property="uploadDate"/>
+        </collection>
+    </resultMap>
+
+    <!--查询所有专辑和章节信息-->
+    <select id="selectAllAlbumAndAudio" resultMap="albumMap">
+        SELECT
+            al.*, au.au_id,
+            au.al_id aual_id,
+            au.au_title,
+            au.au_size,
+            au.au_duration,
+            au.au_downPath
+        FROM
+            cmfz_album al
+        LEFT JOIN cmfz_audio au ON al.al_id = au.al_id
+    </select>
+
+    <!--添加专辑-->
+    <insert id="insertAlbum">
+        INSERT INTO cmfz_album (
+            al_title,
+            al_coverImg,
+            al_count,
+            al_score,
+            al_author,
+            al_broadCast,
+            al_brief,
+            al_publishDate
+        )
+        VALUES
+            (
+                #{title},
+                #{coverImg},
+                #{count},
+                #{score},
+                #{author},
+                #{broadCast},
+                #{brief},
+                NOW()
+            );
+    </insert>
+</mapper>
