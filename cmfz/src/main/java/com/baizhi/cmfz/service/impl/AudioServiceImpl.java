@@ -8,13 +8,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+//声明式事务处理
 @Transactional
 public class AudioServiceImpl implements AudioService {
     @Autowired
     private AudioDao audioDao;
 
     @Override
-    public void add(Audio audio) {
-        audioDao.add(audio);
+    public void addAudio(Audio audio) {
+        audioDao.insertAudio(audio);
     }
 }

@@ -12,7 +12,7 @@ public class Album {
     private String id;
     private String title;
     private String coverImg;
-    private int count;
+    private Integer count;
     private double score;
     private String author;
     private String broadCast;

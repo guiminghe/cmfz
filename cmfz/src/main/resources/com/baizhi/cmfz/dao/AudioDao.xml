@@ -13,7 +13,15 @@
         <result column="au_downPath" property="downPath"/>
         <result column="au_uploadDate" property="uploadDate"/>
     </resultMap>
-    <insert id="add">
-        insert into cmfz_audio(al_id,au_title,au_size,au_duration,au_downPath,au_uploadDate) values(#{alId},#{title},#{size},#{duration},#{downPath},now())
+    <insert id="insertAudio">
+        INSERT INTO cmfz_audio
+        VALUES
+            (0,
+            #{alId},
+            #{title},
+            #{size},
+            #{duration},
+            #{downPath},
+            SYSDATE())
     </insert>
 </mapper>

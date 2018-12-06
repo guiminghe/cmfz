@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 public class Banner {
-    private int id;
+    private Integer id;
     private String title;
     private String imgPath;
     private String desc;

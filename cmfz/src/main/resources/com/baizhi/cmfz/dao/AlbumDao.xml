@@ -32,7 +32,7 @@
         <result column="al_publishDate" property="publishDate"/>
         <collection property="children" ofType="Audio">
             <id column="au_id" property="id"/>
-            <result column="al_id" property="alId"/>
+            <result column="alId" property="alId"/>
             <result column="au_title" property="title"/>
             <result column="au_size" property="size"/>
             <result column="au_duration" property="duration"/>
@@ -45,7 +45,7 @@
     <select id="selectAllAlbumAndAudio" resultMap="albumMap">
         SELECT
             al.*, au.au_id,
-            au.al_id aual_id,
+            au.al_id alId,
             au.au_title,
             au.au_size,
             au.au_duration,
@@ -57,18 +57,10 @@
 
     <!--添加专辑-->
     <insert id="insertAlbum">
-        INSERT INTO cmfz_album (
-            al_title,
-            al_coverImg,
-            al_count,
-            al_score,
-            al_author,
-            al_broadCast,
-            al_brief,
-            al_publishDate
-        )
+        INSERT INTO cmfz_album
         VALUES
             (
+                #{id},
                 #{title},
                 #{coverImg},
                 #{count},
@@ -76,7 +68,7 @@
                 #{author},
                 #{broadCast},
                 #{brief},
-                NOW()
+                SYSDATE()
             );
     </insert>
 </mapper>

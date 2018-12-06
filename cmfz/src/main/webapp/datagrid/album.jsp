@@ -38,7 +38,7 @@
             } else {
                 if (row.score != null) {
                     $("#album_ff").form("load", row);
-                    $("#album_img").prop("src", row.img)
+                    $("#album_img").prop("src", "${pageContext.request.contextPath}/images/" + row.coverImg)
                 } else {
                     alert("请先选中专辑")
                 }
@@ -51,7 +51,7 @@
             var row = $("#chapter_tg").treegrid("getSelected");
             if (row != null) {
                 if (row.size != null) {
-                    location.href = "${pageContext.request.contextPath}/chapter/download?url=" + row.url + "&title=" + row.title
+                    location.href = "${pageContext.request.contextPath}/downloadAudio?url=" + row.downPath + "&title=" + row.title
                 }
             }
         }
@@ -60,7 +60,7 @@
         $("#chapter_tg").treegrid({
             onDblClickRow: function (row) {
                 $("#audio").dialog("open")
-                $("#audio_id").prop("src", "${pageContext.request.contextPath}/upload/" + row.url)
+                $("#audio_id").prop("src", "${pageContext.request.contextPath}/audio/" + row.downPath)
             },
             toolbar: toolbar,
             url: '${pageContext.request.contextPath}/selectAllAlbumAndAudio.do',
@@ -96,7 +96,7 @@
             buttons: [{
                 text: '保存',
                 handler: function () {
-
+                    addAudio();
                 }
             }, {
                 text: '关闭',
@@ -113,18 +113,7 @@
             buttons: [{
                 text: '保存',
                 handler: function () {
-                    $('#album_dd').form('submit', {
-                        url: "${pageContext.request.contextPath}/insertAlbum",
-                        success: function (data) {
-                            if (data == "true") {
-                                $.messager.alert("提示框", "添加成功", "message");
-                                $("#albumAdd").dialog("close");
-                                $("#chapter_tg").treegrid("reload");
-                            } else {
-                                $.messager.alert("提示框", "添加失败", "warning");
-                            }
-                        }
-                    });
+                    addAlbum();
                 }
             }, {
                 text: '关闭',
@@ -133,13 +122,39 @@
                 }
             }],
         });
+
+
     })
 
 
-    function addChapter() {
+    function addAudio() {
         $('#chapter_ff').form('submit', {
-            url: "${pageContext.request.contextPath}/chapter/add"
+            url: "${pageContext.request.contextPath}/addAudio",
+            success: function (data) {
+                if (data == "true") {
+                    $.messager.alert("提示框", "添加成功", "message");
+                    $("#chapter_dd").dialog("close");
+                    $("#chapter_tg").treegrid("reload");
+                } else {
+                    $.messager.alert("提示框", "添加失败", "warning");
+                }
+            }
         })
+    }
+
+    function addAlbum() {
+        $('#album_dd').form('submit', {
+            url: "${pageContext.request.contextPath}/insertAlbum",
+            success: function (data) {
+                if (data == "true") {
+                    $.messager.alert("提示框", "添加成功", "message");
+                    $("#albumAdd").dialog("close");
+                    $("#chapter_tg").treegrid("reload");
+                } else {
+                    $.messager.alert("提示框", "添加失败", "warning");
+                }
+            }
+        });
     }
 
 
@@ -150,25 +165,6 @@
 <div id="album">
 
     <form id="album_ff" method="post">
-        <div>
-            <input id="name" class="easyui-validatebox" type="text" name="title" data-options="required:true"/>
-        </div>
-        <div>
-            <input class="easyui-validatebox" type="text" name="author" data-options="required:true"/>
-        </div>
-        <div>
-            <input class="easyui-validatebox" type="text" name="brief" data-options="required:true"/>
-        </div>
-        <div>
-            <img src="" id="album_img">
-        </div>
-    </form>
-</div>
-
-<%--添加专辑--%>
-<div id="albumAdd">
-
-    <form id="album_dd" method="post">
         <div>
             标题:<input class="easyui-validatebox" type="text" name="title" data-options="required:true"/>
         </div>
@@ -188,22 +184,51 @@
             评分:<input class="easyui-validatebox" type="text" name="score" data-options="required:true"/>
         </div>
         <div>
-            封面:<input type="file" name="coverImg" style="width:300px">
+            封面:<img id="album_img" src="">
+        </div>
+    </form>
+</div>
+
+<%--添加专辑--%>
+<div id="albumAdd">
+
+    <form id="album_dd" method="post"
+    ="multipart/form-data">
+    <div>enctype
+            标题:<input class="easyui-validatebox" type="text" name="title" data-options="required:true"/>
+        </div>
+        <div>
+            作者:<input class="easyui-validatebox" type="text" name="author" data-options="required:true"/>
+        </div>
+        <div>
+            播音:<input class="easyui-validatebox" type="text" name="broadCast" data-options="required:true"/>
+        </div>
+        <div>
+            简介:<input class="easyui-validatebox" type="text" name="brief" data-options="required:true"/>
+        </div>
+        <div>
+            数量:<input class="easyui-validatebox" type="text" name="count" data-options="required:true"/>
+        </div>
+        <div>
+            评分:<input class="easyui-validatebox" type="text" name="score" data-options="required:true"/>
+        </div>
+        <div>
+            封面:<input type="file" name="coverImgs" style="width:300px">
         </div>
     </form>
 </div>
 
 <div id="chapter_dd">
 
-    <form id="chapter_ff" method="post" ENCTYPE="multipart/form-data">
+    <form id="chapter_ff" method="post" enctype="multipart/form-data">
         <div>
             标题:<input class="easyui-validatebox" type="text" name="title" data-options="required:true"/>
         </div>
         <div>
-            请选择:<input type="file" name="chapter" style="width:300px">
+            请选择:<input type="file" name="myAudio" style="width:300px">
         </div>
         <div>
-            <input type="hidden" name="id" id="p_id" value="" style="width:300px">
+            <input type="hidden" name="alId" id="p_id" value="" style="width:300px">
         </div>
     </form>
 </div>

@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 public class Audio {
-    private int id;
+    private Integer id;
     private String alId;
     private String title;
     private double size;

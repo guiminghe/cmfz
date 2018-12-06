@@ -4,5 +4,5 @@ import com.baizhi.cmfz.entity.Audio;
 
 public interface AudioDao {
     //添加音频
-    public void add(Audio audio);
+    public void insertAudio(Audio audio);
 }
