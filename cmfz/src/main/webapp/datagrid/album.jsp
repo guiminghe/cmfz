@@ -51,7 +51,7 @@
             var row = $("#chapter_tg").treegrid("getSelected");
             if (row != null) {
                 if (row.size != null) {
-                    location.href = "${pageContext.request.contextPath}/downloadAudio?url=" + row.downPath + "&title=" + row.title
+                    location.href = "${pageContext.request.contextPath}/downloadAudio?downPath=" + row.downPath + "&title=" + row.title
                 }
             }
         }

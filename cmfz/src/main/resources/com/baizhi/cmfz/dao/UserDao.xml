@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.cmfz.dao.UserDao">
+    <!--    private Integer id;
+        private String phoneNum;
+        private String username;
+        private String password;
+        private String salt;
+        private String dharmaName;
+        private String province;
+        private String city;
+        private String sex;
+        private String sign;
+        private String headPic;
+        private String status;
+        @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+        private Date date;-->
+    <resultMap type="User" id="userMap">
+        <id column="u_id" property="id"/>
+        <result column="u_phoneNum" property="phoneNum"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="dharmaName" property="dharmaName"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="sex" property="sex"/>
+        <result column="sign" property="sign"/>
+        <result column="headPic" property="headPic"/>
+        <result column="status" property="status"/>
+        <result column="date" property="date"/>
+    </resultMap>
+    <!-- 统计近几周用户注册数量 -->
+    <select id="selectCountUser" resultType="int">
+        SELECT
+        count(*)
+        FROM
+        cmfz_user
+        WHERE
+        datediff(sysdate(), date) <![CDATA[<=]]> #{days};
+    </select>
+</mapper>

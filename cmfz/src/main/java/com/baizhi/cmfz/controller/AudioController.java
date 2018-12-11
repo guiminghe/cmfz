@@ -67,9 +67,10 @@ public class AudioController {
     //下载音频
     @RequestMapping("/downloadAudio")
     public void downloadAudio(String downPath, String title, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String uploadPath = request.getSession().getServletContext().getRealPath("/audion");
+        String uploadPath = request.getSession().getServletContext().getRealPath("/audio");
         String path = uploadPath + "/" + downPath;
         File file = new File(path);
+        //System.out.println(downPath);
         //获取地址的后缀
         String extension = downPath.substring(downPath.lastIndexOf("."));
         String downloadName = title + extension;
