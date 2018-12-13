@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.cmfz.dao.UserDTODao">
+    <!--    private String province;
+        private Integer count;-->
+    <resultMap type="UserDTO" id="userDtoMap">
+        <result column="province" property="name"/>
+        <result column="count" property="value"/>
+    </resultMap>
+    <!-- 查询每个省份男女的数量 -->
+    <select id="selectCountBySex" resultMap="userDtoMap">
+        SELECT
+
+            count(*) count,
+            province
+        FROM
+            cmfz_user
+        WHERE
+            sex = #{sex}
+        GROUP BY
+            province;
+    </select>
+</mapper>

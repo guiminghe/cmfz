@@ -84,7 +84,7 @@
     myChart.setOption(option);
 
     $(function () {
-        $.post("${pageContext.request.contextPath}/selectCountBySex?sex='男'", function (data) {
+        $.post("${pageContext.request.contextPath}/selectCountBySex?sex=男", function (data) {
             console.log(data);
             myChart.setOption({
                 series: [{
@@ -95,7 +95,7 @@
             });
         }, "json");
 
-        $.post("${pageContext.request.contextPath}/selectCountBySex?sex='女", function (data) {
+        $.post("${pageContext.request.contextPath}/selectCountBySex?sex=女", function (data) {
             console.log(data);
             myChart.setOption({
                 series: [{

@@ -20,11 +20,6 @@ public class AlbumServiceImpl implements AlbumService {
         Map map = new HashMap();
         List<Album> albumList = albumDao.selectAllAlbumAndAudio();
 
-        /*for (Album a:albumList
-             ) {
-            System.out.println(a);
-        }*/
-
         map.put("rows", albumList);
         return map;
     }

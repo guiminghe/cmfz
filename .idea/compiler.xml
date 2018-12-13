@@ -9,7 +9,7 @@
         <module name="cmfz" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="8">
       <module name="cmfz" target="1.8" />
     </bytecodeTargetLevel>
   </component>
